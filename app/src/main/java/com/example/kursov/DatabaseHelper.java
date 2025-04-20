@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_SALARY = "salary";
 
     public DatabaseHelper(Context context) {
-        super(context, "contacts.db", null, 1);
+        super(context, "Workers.db", null, 1);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -107,4 +107,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.close();
         return result > 0;
     }
+
+
 }
