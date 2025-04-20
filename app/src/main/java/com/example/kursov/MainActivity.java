@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button mybutton = findViewById(R.id.button);
 
+        dbHelper.clearWorkersTable();
         addSampleData();
 
         mybutton.setOnClickListener(new View.OnClickListener(){
