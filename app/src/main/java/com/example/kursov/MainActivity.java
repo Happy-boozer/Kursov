@@ -44,15 +44,5 @@ public class MainActivity extends AppCompatActivity {
     private void addSampleData() {
         // Добавление одной записи
         dbHelper.addWorker(new Worker(1, "Иван Иванов", "Колорист", "80000", "5 лет"));
-        //Toast.makeText(this, "Добавлена запись с ID: " + id, Toast.LENGTH_SHORT).show();
-
-        // Добавление нескольких записей
-            /*List<Worker> persons = new ArrayList<>();
-            persons.add(new Worker("Петр Петров", 25, "petr@example.com"));
-            persons.add(new Worker("Анна Сидорова", 28, "anna@example.com"));
-            persons.add(new Worker("Сергей Сергеев", 35, "sergey@example.com"));
-
-            dbHelper.insertMultipleData(persons);*/
-        //Toast.makeText(this, "Добавлено " + persons.size() + " записей", Toast.LENGTH_SHORT).show();
     }
 }
