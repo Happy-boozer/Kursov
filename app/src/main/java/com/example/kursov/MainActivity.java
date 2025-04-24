@@ -3,22 +3,34 @@ package com.example.kursov;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-
-import com.example.kursov.DatabaseViewActivity;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseHelper dbHelper = new DatabaseHelper(this);
+    public void onNextActivity(){
+        Intent intent = new Intent(this, DatabaseViewActivity1.class);
+        startActivity(intent);
+    }
+
+    public void onNextActivity2(){
+        Intent intent = new Intent(this, DatabaseViewActivity2.class);
+        startActivity(intent);
+    }
+
+    public void onNextActivity3(){
+        Intent intent = new Intent(this, DatabaseViewActivity2.class);
+        startActivity(intent);
+    }
+
+
+    private DatabaseHelper1 dbHelper1 = new DatabaseHelper1(this);
+    String [] tabels = {"Сотрудники", "Филлиалы", "Должности"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +38,51 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Button mybutton = findViewById(R.id.button);
+        ListView workers = (ListView)findViewById(R.id.list_item);
 
-        dbHelper.clearWorkersTable();
-        addSampleData();
+        ArrayAdapter<String> workersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tabels);
+        workers.setAdapter(workersAdapter);
 
-        mybutton.setOnClickListener(new View.OnClickListener(){
+        workers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view){
-                Intent intent = new Intent(MainActivity.this, DatabaseViewActivity.class);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = tabels[position];
+                switch (selectedItem) {
+                    case "Сотрудники":
+                        onNextActivity();
+                        break;
+                    case "Филлиалы":
+                        onNextActivity2();
+                        break;
+                    case "Должности":
+                        onNextActivity3();
+                        break;
+
+                }
+
+
             }
         });
+
+        //Button mybutton = findViewById(R.id.button);
+
+
+
+        dbHelper1.clearWorkersTable();
+        //addSampleData();
+
+        /*mybutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MainActivity.this, DatabaseViewActivity1.class);
+                startActivity(intent);
+            }
+        });*/
 
     }
 
     private void addSampleData() {
         // Добавление одной записи
-        dbHelper.addWorker(new Worker(1, "Иван Иванов", "Колорист", "80000", "5 лет"));
+        dbHelper1.addWorker(new Worker(1, "Иван Иванов", "Колорист", "80000", "5 лет"));
     }
 }

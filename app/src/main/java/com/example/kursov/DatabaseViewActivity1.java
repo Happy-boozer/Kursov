@@ -10,13 +10,10 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class DatabaseViewActivity extends AppCompatActivity {
+public class DatabaseViewActivity1 extends AppCompatActivity {
 
-    private DatabaseHelper dbHelper;
+    private DatabaseHelper1 dbHelper;
     private TableLayout tableLayout;
 
     @Override
@@ -25,7 +22,7 @@ public class DatabaseViewActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.sdatabase);
 
-        dbHelper = new DatabaseHelper(this);
+        dbHelper = new DatabaseHelper1(this);
         tableLayout = findViewById(R.id.tableLayout);
 
         displayDataInTable();

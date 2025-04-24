@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper1 extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "contacts";
     private static final String COLUMN_ID = "id";
@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_POSITION = "position";
     private static final String COLUMN_SALARY = "salary";
 
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper1(Context context) {
         super(context, "Workers.db", null, 1);
     }
     @Override
