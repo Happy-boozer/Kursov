@@ -4,9 +4,9 @@ public class FIL {
 
     private int id;
     private String address;
-    private int number;
+    private String number;
 
-    public FIL(int id, String name, int number){
+    public FIL(int id, String name, String number){
         this.id = id;
         this.address = name;
         this.number = number;
@@ -23,7 +23,7 @@ public class FIL {
         return this.address;
     }
     
-    public int getNumber(){
+    public String getNumber(){
         return this.number;
     }
     
@@ -35,7 +35,7 @@ public class FIL {
         this.address = name;
     }
     
-    public void setNumber(int number){
+    public void setNumber(String number){
         this.number = number;
     }
 }

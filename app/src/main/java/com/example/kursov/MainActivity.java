@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //private DatabaseHelper1 dbHelper1 = new DatabaseHelper1(this);
+    private DatabaseHelper1 dbHelper1 = new DatabaseHelper1(this);
     //private DatabaseHelper2 databaseHelper2 = new DatabaseHelper2(this);
     String [] tabels = {"Сотрудники", "Филлиалы", "Должности"};
 

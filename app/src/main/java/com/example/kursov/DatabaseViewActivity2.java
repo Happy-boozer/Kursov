@@ -21,6 +21,11 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onNextActivity2(){
+        Intent intent = new Intent(this, MainActivity3.class);
+        startActivity(intent);
+    }
+
     private DatabaseHelper2 dbHelper;
     private TableLayout tableLayout;
 
@@ -36,11 +41,19 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
         displayDataInTable();
 
         Button backbutton = findViewById(R.id.button2);
+        Button addbutton = findViewById(R.id.button3);
 
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onNextActivity();
+            }
+        });
+
+        addbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNextActivity2();
             }
         });
     }
@@ -62,7 +75,7 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
             tableLayout.removeViews(1, childCount - 1);
         }
 
-        //SQLiteDatabase db = dbHelper.getReadableDatabase();
+        db = dbHelper.getReadableDatabase();
         cursor = db.rawQuery("SELECT * FROM fils", null);
 
         TableRow headerRow = new TableRow(this);
