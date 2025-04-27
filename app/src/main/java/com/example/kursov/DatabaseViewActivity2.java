@@ -1,9 +1,12 @@
 package com.example.kursov;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -12,6 +15,11 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DatabaseViewActivity2 extends AppCompatActivity {
+
+    public void onNextActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     private DatabaseHelper2 dbHelper;
     private TableLayout tableLayout;
@@ -26,6 +34,15 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
         tableLayout = findViewById(R.id.tableLayout);
 
         displayDataInTable();
+
+        Button backbutton = findViewById(R.id.button2);
+
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNextActivity();
+            }
+        });
     }
 
     private void displayDataInTable() {

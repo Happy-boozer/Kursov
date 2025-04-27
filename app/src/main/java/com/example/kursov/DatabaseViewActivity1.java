@@ -1,9 +1,12 @@
 package com.example.kursov;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,6 +19,16 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
     private DatabaseHelper1 dbHelper;
     private TableLayout tableLayout;
 
+    public void onNextActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void onNextActivity2(){
+        Intent intent = new Intent(this, MainActivity2.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +39,22 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
         tableLayout = findViewById(R.id.tableLayout);
 
         displayDataInTable();
+
+        Button mybutton = findViewById(R.id.button2);
+        Button mybutton1 = findViewById(R.id.button3);
+        mybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNextActivity();
+            }
+        });
+
+        mybutton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {onNextActivity2();}
+        });
+
+
     }
 
     private void displayDataInTable() {
@@ -67,4 +96,6 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
+
 }
