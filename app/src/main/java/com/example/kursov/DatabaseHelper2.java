@@ -11,10 +11,10 @@ import java.util.List;
 
 public class DatabaseHelper2 extends SQLiteOpenHelper {
 
-    private static final String TABLE_NAME = "FILS";
+    private static final String TABLE_NAME = "fils";
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_ADDRESS = "";
-    private static final String COLUMN_KOLVO = "";
+    private static final String COLUMN_ADDRESS = "address";
+    private static final String COLUMN_KOLVO = "number_of_people";
 
 
     public DatabaseHelper2(Context context) {
@@ -28,6 +28,7 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
                 COLUMN_KOLVO + " TEXT)";
         db.execSQL(createTable);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int
             newVersion) {
@@ -35,11 +36,11 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
         //onCreate(db);
     }
     // Добавление нового worker
-    public boolean addWorker(Worker worker) {
+    public boolean addWorker(FIL worker) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_ADDRESS, worker.getName());
-        cv.put(COLUMN_KOLVO, worker.getPosition());
+        cv.put(COLUMN_ADDRESS, worker.getAddress());
+        cv.put(COLUMN_KOLVO, worker.getNumber());
         long result = db.insert(TABLE_NAME, null, cv);
         db.close();
         return result != -1;
@@ -53,7 +54,7 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
         return result > 0;
     }*/
     // Поиск контакта по номеру телефона
-    public Worker findContact(String position) {
+    public FIL findContact(String position) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new
                         String[]{COLUMN_ID, COLUMN_KOLVO, COLUMN_ADDRESS},
@@ -61,7 +62,7 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
                 null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            Worker worker = new Worker(cursor.getInt(0),
+            FIL worker = new FIL(cursor.getInt(0),
                     cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
             cursor.close();
             db.close();
@@ -74,14 +75,14 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
         return null;
     }
     // Получение всех контактов
-    public List<Worker> getAllContacts() {
-        List<Worker> contactList = new ArrayList<>();
+    public List<FIL> getAllContacts() {
+        List<FIL> contactList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " +
                 TABLE_NAME, null);
         if (cursor.moveToFirst()) {
             do {
-                Worker contact = new Worker(cursor.getInt(0),
+                FIL contact = new FIL(cursor.getInt(0),
                         cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
                 contactList.add(contact);
             } while (cursor.moveToNext());

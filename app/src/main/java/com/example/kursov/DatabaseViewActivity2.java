@@ -20,7 +20,7 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.sdatabase);
+        setContentView(R.layout.sdatabase2);
 
         dbHelper = new DatabaseHelper2(this);
         tableLayout = findViewById(R.id.tableLayout);
@@ -29,14 +29,24 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
     }
 
     private void displayDataInTable() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Проверяем существование таблицы
+        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='fils'", null);
+        if (!cursor.moveToFirst()) {
+            // Таблицы не существует, создаем ее
+            dbHelper.onCreate(db);
+        }
+        cursor.close();
+
         // Очищаем таблицу (кроме заголовков)
         int childCount = tableLayout.getChildCount();
         if (childCount > 1) {
             tableLayout.removeViews(1, childCount - 1);
         }
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM contacts", null);
+        //SQLiteDatabase db = dbHelper.getReadableDatabase();
+        cursor = db.rawQuery("SELECT * FROM fils", null);
 
         TableRow headerRow = new TableRow(this);
         String[] columnNames = cursor.getColumnNames();

@@ -20,7 +20,7 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.sdatabase);
+        setContentView(R.layout.sdatabase1);
 
         dbHelper = new DatabaseHelper1(this);
         tableLayout = findViewById(R.id.tableLayout);

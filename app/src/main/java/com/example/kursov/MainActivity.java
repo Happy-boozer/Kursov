@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private DatabaseHelper1 dbHelper1 = new DatabaseHelper1(this);
+    //private DatabaseHelper1 dbHelper1 = new DatabaseHelper1(this);
+    //private DatabaseHelper2 databaseHelper2 = new DatabaseHelper2(this);
     String [] tabels = {"Сотрудники", "Филлиалы", "Должности"};
 
     @Override
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 String selectedItem = tabels[position];
                 switch (selectedItem) {
                     case "Сотрудники":
+                        //addSampleData();
                         onNextActivity();
                         break;
                     case "Филлиалы":
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        dbHelper1.clearWorkersTable();
+        //dbHelper1.clearWorkersTable();
         //addSampleData();
 
         /*mybutton.setOnClickListener(new View.OnClickListener(){
@@ -81,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addSampleData() {
-        // Добавление одной записи
-        dbHelper1.addWorker(new Worker(1, "Иван Иванов", "Колорист", "80000", "5 лет"));
-    }
+//    private void addSampleData() {
+//        // Добавление одной записи
+//        dbHelper1.addWorker(new Worker(1, "Иван Иванов", "Колорист", "80000", "5 лет"));
+//    }
 }
