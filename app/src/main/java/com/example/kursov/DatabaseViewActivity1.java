@@ -31,6 +31,7 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.sdatabase1);
@@ -58,6 +59,10 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
     }
 
     private void displayDataInTable() {
+
+
+
+
         // Очищаем таблицу (кроме заголовков)
         int childCount = tableLayout.getChildCount();
         if (childCount > 1) {
@@ -65,6 +70,12 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
         }
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor1 = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='contacts'", null);
+        if (!cursor1.moveToFirst()) {
+            // Таблицы не существует, создаем ее
+            dbHelper.onCreate(db);
+        }
+        cursor1.close();
         Cursor cursor = db.rawQuery("SELECT * FROM contacts", null);
 
         TableRow headerRow = new TableRow(this);

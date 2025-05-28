@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onNextActivity3(){
-        Intent intent = new Intent(this, DatabaseViewActivity2.class);
+        Intent intent = new Intent(this, DACT.class);
         startActivity(intent);
     }
 

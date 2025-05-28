@@ -1,10 +1,12 @@
 package com.example.kursov;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -14,7 +16,9 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class DatabaseViewActivity2 extends AppCompatActivity {
+import java.util.List;
+
+public class DatabaseViewActivity3 extends AppCompatActivity {
 
     public void onNextActivity(){
         Intent intent = new Intent(this, MainActivity.class);
@@ -22,27 +26,36 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
     }
 
     public void onNextActivity2(){
-        Intent intent = new Intent(this, MainActivity5.class);
+        Intent intent = new Intent(this, MainActivity3.class);
         startActivity(intent);
     }
 
-    private DatabaseHelper2 dbHelper;
+    private DatabaseHelper3 dbHelper;
     private TableLayout tableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //dbHelper.clearWorkersTable();
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.sdatabase2);
+        setContentView(R.layout.sdatabase3);
 
-        dbHelper = new DatabaseHelper2(this);
+        dbHelper = new DatabaseHelper3(this);
         tableLayout = findViewById(R.id.tableLayout);
+        dbHelper.clearWorkersTable();
 
         displayDataInTable();
 
         Button backbutton = findViewById(R.id.button2);
         Button addbutton = findViewById(R.id.button3);
+        Button testButton = findViewById(R.id.test_button);
+        testButton.setOnClickListener(v -> {
+            List<Position> positions = dbHelper.getAllPositions();
+            Log.d("DB_TEST", "Всего записей: " + positions.size());
+            for (Position p : positions) {
+                Log.d("DB_TEST", p.getId() + ": " + p.getName() + " - " + p.getOklad());
+            }
+        });
 
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +70,29 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
                 onNextActivity2();
             }
         });
+
+        //insertTestData();
+    }
+
+    private void insertTestData() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", "Менеджер");
+        values.put("oklad", 50000);
+        db.insert("positions", null, values);
+
+        values.put("name", "Разработчик");
+        values.put("oklad", 100000);
+        db.insert("positions", null, values);
+
+        db.close();
     }
 
     private void displayDataInTable() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         // Проверяем существование таблицы
-        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='fils'", null);
+        Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='positions'", null);
         if (!cursor.moveToFirst()) {
             // Таблицы не существует, создаем ее
             dbHelper.onCreate(db);
@@ -77,7 +106,7 @@ public class DatabaseViewActivity2 extends AppCompatActivity {
         }
 
         db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("SELECT * FROM fils", null);
+        cursor = db.rawQuery("SELECT * FROM positions", null);
 
         TableRow headerRow = new TableRow(this);
         String[] columnNames = cursor.getColumnNames();
