@@ -48,14 +48,14 @@ public class DatabaseViewActivity3 extends AppCompatActivity {
 
         Button backbutton = findViewById(R.id.button2);
         Button addbutton = findViewById(R.id.button3);
-        Button testButton = findViewById(R.id.test_button);
-        testButton.setOnClickListener(v -> {
-            List<Position> positions = dbHelper.getAllPositions();
-            Log.d("DB_TEST", "Всего записей: " + positions.size());
-            for (Position p : positions) {
-                Log.d("DB_TEST", p.getId() + ": " + p.getName() + " - " + p.getOklad());
-            }
-        });
+        //Button testButton = findViewById(R.id.test_button);
+//        testButton.setOnClickListener(v -> {
+//            List<Position> positions = dbHelper.getAllPositions();
+//            Log.d("DB_TEST", "Всего записей: " + positions.size());
+//            for (Position p : positions) {
+//                Log.d("DB_TEST", p.getId() + ": " + p.getName() + " - " + p.getOklad());
+//            }
+//        });
 
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
