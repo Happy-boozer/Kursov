@@ -4,8 +4,7 @@
 
         <item name="android:background">@color/yellowb</item>
         <item name="colorPrimary">@color/orange</item>
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        
     </style>
 
     <style name="Theme.Kursov" parent="Base.Theme.Kursov" />

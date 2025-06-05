@@ -1,5 +1,7 @@
 package com.example.kursov;
 
+import static com.example.kursov.MainActivity.FLAG_EXTRA;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,13 +22,16 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
     private DatabaseHelper1 dbHelper;
     private TableLayout tableLayout;
 
-    public void onNextActivity(){
+
+    public void onNextActivity(boolean flag){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(FLAG_EXTRA, flag);
         startActivity(intent);
     }
 
-    public void onNextActivity2(){
+    public void onNextActivity2(boolean flag){
         Intent intent = new Intent(this, MainActivity2.class);
+        intent.putExtra(FLAG_EXTRA, flag);
         startActivity(intent);
     }
 
@@ -35,24 +41,31 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.sdatabase1);
+        boolean flag = getIntent().getBooleanExtra(FLAG_EXTRA, false);
+        final boolean flagm = flag;
 
         dbHelper = new DatabaseHelper1(this);
         tableLayout = findViewById(R.id.tableLayout);
 
         displayDataInTable();
 
-        Button mybutton = findViewById(R.id.button2);
+        ImageButton mybutton = findViewById(R.id.imageButton);
         Button mybutton1 = findViewById(R.id.button3);
+        if (flagm) {
+            mybutton1.setVisibility(View.GONE);
+        } else {
+            mybutton1.setVisibility(View.VISIBLE);
+        }
         mybutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNextActivity();
+                onNextActivity(flagm);
             }
         });
 
         mybutton1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {onNextActivity2();}
+            public void onClick(View v) {onNextActivity2(flagm);}
         });
 
 
@@ -71,6 +84,7 @@ public class DatabaseViewActivity1 extends AppCompatActivity {
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor1 = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='contacts'", null);
+        //dbHelper.onUpgrade(db, 1, 2);
         if (!cursor1.moveToFirst()) {
             // Таблицы не существует, создаем ее
             dbHelper.onCreate(db);

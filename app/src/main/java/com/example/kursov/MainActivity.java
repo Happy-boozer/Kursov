@@ -13,33 +13,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    public void onNextActivity(){
+    public static final String FLAG_EXTRA = "flag_extra";
+
+
+    public void onNextActivity(boolean flag) {
         Intent intent = new Intent(this, DatabaseViewActivity1.class);
+        intent.putExtra(FLAG_EXTRA, flag);
         startActivity(intent);
     }
 
-    public void onNextActivity2(){
+    public void onNextActivity2(boolean flag) {
         Intent intent = new Intent(this, DatabaseViewActivity2.class);
+        intent.putExtra(FLAG_EXTRA, flag);
         startActivity(intent);
     }
 
-    public void onNextActivity3(){
+    public void onNextActivity3(boolean flag) {
         Intent intent = new Intent(this, DACT.class);
+        intent.putExtra(FLAG_EXTRA, flag);
         startActivity(intent);
     }
 
 
     private DatabaseHelper1 dbHelper1 = new DatabaseHelper1(this);
     //private DatabaseHelper2 databaseHelper2 = new DatabaseHelper2(this);
-    String [] tabels = {"Сотрудники", "Филлиалы", "Должности"};
+    String[] tabels = {"Сотрудники", "Филлиалы", "Должности"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        boolean flag = getIntent().getBooleanExtra(MainActivity4.FLAG_EXTRA, false);
 
-        ListView workers = (ListView)findViewById(R.id.list_item);
+        ListView workers = (ListView) findViewById(R.id.list_item);
 
         ArrayAdapter<String> workersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tabels);
         workers.setAdapter(workersAdapter);
@@ -51,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
                 switch (selectedItem) {
                     case "Сотрудники":
                         //addSampleData();
-                        onNextActivity();
+                        onNextActivity(flag);
                         break;
                     case "Филлиалы":
-                        onNextActivity2();
+                        onNextActivity2(flag);
                         break;
                     case "Должности":
-                        onNextActivity3();
+                        onNextActivity3(flag);
                         break;
 
                 }
@@ -66,25 +73,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Button mybutton = findViewById(R.id.button);
-
-
-
-        //dbHelper1.clearWorkersTable();
-        //addSampleData();
-
-        /*mybutton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(MainActivity.this, DatabaseViewActivity1.class);
-                startActivity(intent);
-            }
-        });*/
-
     }
-
-//    private void addSampleData() {
-//        // Добавление одной записи
-//        dbHelper1.addWorker(new Worker(1, "Иван Иванов", "Колорист", "80000", "5 лет"));
-//    }
 }

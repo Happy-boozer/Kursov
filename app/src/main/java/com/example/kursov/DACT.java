@@ -1,5 +1,7 @@
 package com.example.kursov;
 
+import static com.example.kursov.MainActivity.FLAG_EXTRA;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -21,6 +24,8 @@ public class DACT extends AppCompatActivity {
 
     private DatabaseHelper3 dbHelper;
     private TableLayout tableLayout;
+    //static final boolean flagm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,36 +35,48 @@ public class DACT extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.sdatabase3);
 
+
         dbHelper = new DatabaseHelper3(this);
         tableLayout = findViewById(R.id.tableLayout);
+        boolean flag = getIntent().getBooleanExtra(FLAG_EXTRA, false);
+        final boolean flagm = flag;
         insertTestData();
 
         // Инициализация UI
-        initUI();
+        initUI(flagm);
 
         // Загрузка данных при создании активити
         loadData();
     }
 
-    private void initUI() {
-        Button backbutton = findViewById(R.id.button2);
+    private void initUI(boolean flag) {
+        ImageButton backbutton = findViewById(R.id.imageButton3);
         Button addbutton = findViewById(R.id.button3);
 
-        backbutton.setOnClickListener(v -> onNextActivity());
+        if (flag) {
+            addbutton.setVisibility(View.GONE);
+        } else {
+            addbutton.setVisibility(View.VISIBLE);
+        }
+
+        backbutton.setOnClickListener(v -> onNextActivity(flag));
         addbutton.setOnClickListener(v -> {
-            onNextActivity2();
+            onNextActivity2(flag);
             // После возврата из MainActivity3 обновляем данные
             //loadData();
         });
     }
 
-    public void onNextActivity() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+    public void onNextActivity(boolean flag) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(FLAG_EXTRA, flag);
+        startActivity(intent);
     }
 
-    public void onNextActivity2() {
-        startActivity(new Intent(this, MainActivity3.class));
+    public void onNextActivity2(boolean flag) {
+        Intent intent = new Intent(this, MainActivity3.class);
+        intent.putExtra(FLAG_EXTRA, flag);
+        startActivity(intent);
     }
 
     @Override

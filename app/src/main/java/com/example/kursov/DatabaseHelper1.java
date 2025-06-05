@@ -34,8 +34,8 @@ public class DatabaseHelper1 extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int
             newVersion) {
-        //db.execSQL("DELETE FROM " + TABLE_NAME);
-        //onCreate(db);
+        db.execSQL("DELETE FROM " + TABLE_NAME);
+        onCreate(db);
     }
     // Добавление нового worker
     public boolean addWorker(Worker worker) {
